@@ -17,9 +17,6 @@ app.use(signUpRouter);
 app.use(signInRouter);
 
 app.use(ErrorHandler);
-app.get("/api/users/currentUser", (req, res) => {
-  res.send("Hi there!");
-});
 
 const start = async () => {
   try {
