@@ -14,14 +14,14 @@ export const signUp = async (
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      next(new RequestValidationError(errors.array()));
+      throw new RequestValidationError(errors.array());
     }
 
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      next(new BadRequestError("User with that email already exists"));
+      throw new BadRequestError("user with that email already exists");
     }
 
     const hashedPassword = await Password.toHash(password);
@@ -29,5 +29,7 @@ export const signUp = async (
     const savedUser = await user.save();
 
     res.status(200).send({ savedUser });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
