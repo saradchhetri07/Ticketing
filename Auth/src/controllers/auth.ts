@@ -32,9 +32,9 @@ export const signUp = async (
     const userJwt = jwt.sign(
       {
         id: user.id,
-        emai: user.email,
+        email: user.email,
       },
-      "sdfas"
+      process.env.JWT_KEY!
     );
 
     req.session = {
