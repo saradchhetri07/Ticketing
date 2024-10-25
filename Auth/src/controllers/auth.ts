@@ -3,6 +3,7 @@ import { validationResult } from "express-validator";
 import { RequestValidationError } from "../errors/request-validation-error";
 import { User } from "../models/user";
 import { BadRequestError } from "../errors/bad-request-error";
+import jwt from "jsonwebtoken";
 import { Password } from "../services/password";
 
 export const signUp = async (
@@ -27,6 +28,18 @@ export const signUp = async (
     const user = User.build({ email, password });
     const savedUser = await user.save();
 
+    //generate jwt token
+    const userJwt = jwt.sign(
+      {
+        id: user.id,
+        emai: user.email,
+      },
+      "sdfas"
+    );
+
+    req.session = {
+      jwt: userJwt,
+    };
     res.status(200).send({ savedUser });
   } catch (error) {
     next(error);
