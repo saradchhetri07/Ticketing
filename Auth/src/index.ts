@@ -5,11 +5,19 @@ import { signInRouter } from "./routes/signin";
 import { signOutRouter } from "./routes/signout";
 import { signUpRouter } from "./routes/signup";
 import { ErrorHandler } from "./middlewares/error-handler";
+import cookieSession from "cookie-session";
 import mongoose from "mongoose";
 
 const app = express();
+app.set("trust proxy", true);
 app.use(json());
 
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  })
+);
 app.use(currentUserRouter);
 
 app.use(signOutRouter);

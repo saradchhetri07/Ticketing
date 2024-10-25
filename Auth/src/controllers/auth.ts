@@ -24,8 +24,7 @@ export const signUp = async (
       throw new BadRequestError("user with that email already exists");
     }
 
-    const hashedPassword = await Password.toHash(password);
-    const user = User.build({ email, password: hashedPassword });
+    const user = User.build({ email, password });
     const savedUser = await user.save();
 
     res.status(200).send({ savedUser });
