@@ -12,12 +12,6 @@ export const signUp = async (
   next: NextFunction
 ) => {
   try {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
-    }
-
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email });
 
@@ -84,5 +78,23 @@ export const signIn = async (
     res.status(200).send({ existingUser });
   } catch (error) {
     next(error);
+  }
+};
+
+export const getCurrentUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (!req.session?.jwt) {
+    res.send({ currentUser: null });
+    return;
+  }
+  try {
+    const payload = jwt.verify(req.session!.jwt, process.env.JWT_KEY!);
+    res.send({ currentUser: payload });
+    return;
+  } catch (error) {
+    res.send({ currentUser: null });
   }
 };

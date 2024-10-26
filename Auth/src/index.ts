@@ -18,11 +18,11 @@ app.use(
     secure: true,
   })
 );
-app.use(currentUserRouter);
 
 app.use(signOutRouter);
 app.use(signUpRouter);
 app.use(signInRouter);
+app.use(currentUserRouter);
 
 app.use(ErrorHandler);
 
