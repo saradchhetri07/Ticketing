@@ -26,6 +26,10 @@ app.use(currentUserRouter);
 
 app.use(ErrorHandler);
 
+app.get("/", (req, res) => {
+  res.send("hello world");
+});
+
 const start = async () => {
   try {
     if (!process.env.JWT_KEY) {
@@ -37,7 +41,7 @@ const start = async () => {
   } catch (error) {
     console.error(error);
   }
-  app.listen(3000, () => {
+  app.listen(3001, () => {
     console.log(`listening in port 300!!!`);
   });
 };

@@ -14,5 +14,8 @@ router.post(
   validateRequest,
   signInController
 );
+router.get("/api/users/test", (req, res) => {
+  res.send("hello ");
+});
 
 export { router as signInRouter };
