@@ -10,6 +10,7 @@ export const authorizeUser = (
     if (!req.currentUser) {
       throw new NotAuthorizedError();
     }
+    next();
   } catch (error) {
     next(error);
   }
