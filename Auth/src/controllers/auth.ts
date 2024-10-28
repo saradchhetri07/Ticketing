@@ -86,15 +86,6 @@ export const getCurrentUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.session?.jwt) {
-    res.send({ currentUser: null });
-    return;
-  }
-  try {
-    const payload = jwt.verify(req.session!.jwt, process.env.JWT_KEY!);
-    res.send({ currentUser: payload });
-    return;
-  } catch (error) {
-    res.send({ currentUser: null });
-  }
+  res.send({ currentUser: req.currentUser || null });
+  console.log(`after response`);
 };
