@@ -12,6 +12,9 @@ const landingPage = ({ currentUser }) => {
 };
 
 landingPage.getInitialProps = async (context) => {
+  // const data = await buildClient(context).get("/api/users/currentUser");
+
+  // return data;
   if (typeof window === "undefined") {
     try {
       const { data } = await axios.get(
