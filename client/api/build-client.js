@@ -18,5 +18,7 @@ export default ({ req }) => {
         baseURL: "/",
       });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(`error: `, error);
+  }
 };

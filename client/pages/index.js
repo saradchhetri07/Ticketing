@@ -11,7 +11,7 @@ const landingPage = ({ currentUser }) => {
   );
 };
 
-landingPage.getInitialProps = async (context) => {
+landingPage.getInitialProps = async (req) => {
   // const data = await buildClient(context).get("/api/users/currentUser");
 
   // return data;
@@ -20,12 +20,10 @@ landingPage.getInitialProps = async (context) => {
       const { data } = await axios.get(
         "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentUser",
         {
-          headers: {
-            Host: "ticketing.dev",
-          },
+          headers: req.headers,
         }
       );
-      console.log("Server response:", data);
+
       return { currentUser: data.currentUser };
     } catch (err) {
       console.error("Server-side request failed:", err.message);
