@@ -1,4 +1,3 @@
-import buildClient from "../api/build-client";
 import axios from "axios";
 
 const landingPage = ({ currentUser }) => {
@@ -31,7 +30,7 @@ landingPage.getInitialProps = async (req) => {
     }
   } else {
     // Client-side
-    const { data } = await buildClient(context).get("/api/users/currentUser");
+    const { data } = await axios.get("/api/users/currentUser");
     return { currentUser: data.currentUser };
   }
 };
